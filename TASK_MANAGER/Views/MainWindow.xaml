@@ -1,0 +1,108 @@
+﻿<Window x:Class="_1._task_manager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_1._task_manager"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        Title="Task Manager" 
+        Height="720" Width="1280"
+        >
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="400px" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Border BorderThickness="0 0 1 0" BorderBrush="#DDDDDD">
+            <Grid Margin="20">
+                <StackPanel>
+                    <Label Padding="0" Margin="0 0 0 20" FontSize="17">Process name</Label>
+                    <TextBox Padding="0 0 0 4" Name="processBlackListInput" Text="{Binding Path=BlackListItemName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             FontSize="16" Style="{DynamicResource processBlackListInput}"
+                             BorderBrush="#D0D0D0" BorderThickness="0 0 0 1"/>
+                    <Border Margin="0 20" BorderThickness="1" BorderBrush="#dddddd" >
+
+                        <StackPanel Height="auto" Margin="0 20">
+                            <DataGrid AutoGenerateColumns="False" HorizontalScrollBarVisibility="Hidden" 
+                                      VerticalScrollBarVisibility="Hidden" BorderThickness="0" 
+                                      ItemsSource="{Binding BlackList}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Binding="{Binding}" Width="310"></DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+                <StackPanel Height="Auto" VerticalAlignment="Bottom">
+                    <Button Style="{DynamicResource processBlackListBtn}" 
+                            Background="Purple" Padding="0 5" Margin="0 20 0 0" 
+                            FontSize="16" Content="Add to blacklist" Foreground="White"
+                            IsEnabled="{Binding ElementName=processBlackListInput, Path=Text.Length}"
+                            Command="{Binding AddProcessToBlackList}"
+                    />
+                </StackPanel>
+            </Grid>
+        </Border>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Border BorderThickness="0 0 0 1" BorderBrush="#DDDDDD">
+                <Grid Margin="20">
+                    <Label Padding="0" Margin="0 0 0 20" FontSize="17">Processes</Label>
+                    <Border Margin="0 30 0 20" BorderThickness="1" BorderBrush="#dddddd" >
+                        <StackPanel Height="auto" Margin="0">
+                            <TextBox Padding="4" 
+                             FontSize="16" Style="{DynamicResource processBlackListInput}"
+                             BorderBrush="#D0D0D0" BorderThickness="1" Text="{Binding Path=ProcessName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
+            <Grid Grid.Row="1">
+                <Border BorderThickness="0 0 0 1" BorderBrush="#DDDDDD">
+                    <Grid Margin="20">
+                        <Label Padding="0" Margin="0 0 0 20" FontSize="17">Process details</Label>
+                        <Border Margin="0 40 0 20" BorderThickness="1" BorderBrush="#dddddd" >
+                            <StackPanel Height="350"  CanVerticallyScroll="True">
+                                <DataGrid Height="350" AutoGenerateColumns="False" SelectedItem="{Binding Path=SelectedProcess, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                          HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Visible" 
+                                          ItemsSource="{Binding Path=AllProcesses, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }" >
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Process Name" Binding="{Binding ProcessName}"/>
+                                        <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                                        <DataGridTextColumn Header="SessionId" Binding="{Binding SessionId}"/>
+                                        <DataGridTextColumn Header="MachineName" Binding="{Binding MachineName}"/>
+                                        <DataGridTextColumn Header="StartTime" Binding="{Binding StartTime}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </Border>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Border BorderThickness="0 0 0 1" BorderBrush="#DDDDDD">
+                    <Grid Margin="20" HorizontalAlignment="Right">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Style="{DynamicResource processAddBtn}" Background="Purple"
+                                Width="200" Content="Add" Foreground="White" Padding="0 5" 
+                                Margin="0 0 10 0" Command="{Binding AddProcess}"
+                                />
+                        <Button Style="{DynamicResource processDelBtn}" Background="Black"
+                                Width="200" Content="Kill" Foreground="White" Padding="0 5"
+                                Grid.Column="1" Command="{Binding KillProcess}"
+                                />
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
