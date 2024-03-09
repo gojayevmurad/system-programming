@@ -1,0 +1,17 @@
+﻿<Window x:Class="YOUTUBE_VIDEO_DOWNLOADER2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:YOUTUBE_VIDEO_DOWNLOADER2"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Border Padding="10">
+        <StackPanel>
+            <TextBox x:Name="txtURL" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding Path=DownloadUrl,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="500" />
+            <Button Command="{Binding DownloadCommand}">
+                Download
+            </Button>
+        </StackPanel>
+    </Border>
+</Window>
